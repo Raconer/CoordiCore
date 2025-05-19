@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  shutdown: graceful
+  error:
+    whitelabel:
+      enabled: true
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: Lecture
+  datasource:
+    url: jdbc:h2:mem:testdb  # 메모리 DB
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true          # 웹 콘솔 활성화
+  jpa:
+    hibernate:
+      ddl-auto: update       # 테이블 자동 생성
+    show-sql: true
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger/index.html
+    supported-submit-methods: [get, post, put, delete]
+    tags-sorter: alpha
+    operations-sorter: method
+    groups-order: ASC
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
