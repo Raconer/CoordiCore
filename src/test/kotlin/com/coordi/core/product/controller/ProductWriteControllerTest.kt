@@ -1,12 +1,12 @@
-package com.coordi.core.brand.controller
+package com.coordi.core.product.controller
 
-import com.coordi.core.brand.domain.Brand
 import com.coordi.core.brand.dto.request.AddBrandRequest
 import com.coordi.core.brand.dto.request.UpdateBrandRequest
-import com.coordi.core.product.domain.Product
+import com.coordi.core.global.costants.Category
+import com.coordi.core.product.dto.request.AddProductRequest
+import com.coordi.core.product.dto.request.UpdateProductRequest
 import com.coordi.core.util.ConverterUtil
 import net.datafaker.Faker
-import org.hibernate.sql.Update
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,19 +20,17 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class BrandWriteControllerTest @Autowired constructor(
+class ProductWriteControllerTest @Autowired constructor(
     private val mockMvc: MockMvc,
 ) {
-    private val PATH: String = "/brand"
+    private val PATH: String = "/products"
     private val faker = Faker()
-
-
     @Test
-    @DisplayName("브랜드 추가 테스트")
-    fun addBrand() {
+    @DisplayName("상품 추가 테스트")
+    fun addProduct() {
         // GIVEN
-        val addBrandRequest = AddBrandRequest(faker.name().name())
-        val jsonBody:String = ConverterUtil.getJsonString(addBrandRequest)!!
+        val addProductRequest = AddProductRequest(1,Category.BAG, 1000)
+        val jsonBody:String = ConverterUtil.getJsonString(addProductRequest)!!
 
         // WHEN & THEN
         mockMvc.perform(
@@ -44,11 +42,11 @@ class BrandWriteControllerTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("브랜드 수정 테스트")
-    fun updateBrand() {
+    @DisplayName("상품 수정 테스트")
+    fun updateProduct() {
         // GIVEN
-        val addBrandRequest = UpdateBrandRequest(1,faker.name().name())
-        val jsonBody:String = ConverterUtil.getJsonString(addBrandRequest)!!
+        val addProductRequest = UpdateProductRequest(1,1,Category.BAG, 1000)
+        val jsonBody:String = ConverterUtil.getJsonString(addProductRequest)!!
 
         // WHEN & THEN
         mockMvc.perform(
@@ -60,8 +58,8 @@ class BrandWriteControllerTest @Autowired constructor(
     }
 
     @Test
-    @DisplayName("브랜드 삭제 테스트")
-    fun deleteBrand() {
+    @DisplayName("상품 삭제 테스트")
+    fun deleteProduct() {
         // GIVEN
 
         // WHEN & THEN

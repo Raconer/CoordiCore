@@ -1,12 +1,8 @@
-package com.coordi.core.brand.controller
+package com.coordi.core.product.controller
 
-import com.coordi.core.brand.domain.Brand
 import com.coordi.core.brand.dto.request.AddBrandRequest
-import com.coordi.core.brand.dto.request.UpdateBrandRequest
-import com.coordi.core.product.domain.Product
 import com.coordi.core.util.ConverterUtil
 import net.datafaker.Faker
-import org.hibernate.sql.Update
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,56 +13,47 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.util.LinkedMultiValueMap
+import org.springframework.util.MultiValueMap
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class BrandWriteControllerTest @Autowired constructor(
-    private val mockMvc: MockMvc,
+class ProductReadControllerTest  @Autowired constructor(
+private val mockMvc: MockMvc,
 ) {
-    private val PATH: String = "/brand"
+    private val PATH: String = "/products"
     private val faker = Faker()
-
-
     @Test
-    @DisplayName("브랜드 추가 테스트")
-    fun addBrand() {
+    @DisplayName("카테고리별 최저가 브랜드 및 상품 가격 조회 테스트")
+    fun getCategoryWiseCheapBrands() {
         // GIVEN
-        val addBrandRequest = AddBrandRequest(faker.name().name())
-        val jsonBody:String = ConverterUtil.getJsonString(addBrandRequest)!!
 
         // WHEN & THEN
         mockMvc.perform(
-            MockMvcRequestBuilders.post(this.PATH)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(jsonBody)
+            MockMvcRequestBuilders.get("${this.PATH}/categoryWiseCheapBrands")
         ).andExpect(MockMvcResultMatchers.status().isOk)
             .andDo(MockMvcResultHandlers.print())
     }
 
     @Test
-    @DisplayName("브랜드 수정 테스트")
-    fun updateBrand() {
+    @DisplayName("단일 브랜드 기준 최저가 조회 테스트")
+    fun getCheapestTotalByBrand() {
         // GIVEN
-        val addBrandRequest = UpdateBrandRequest(1,faker.name().name())
-        val jsonBody:String = ConverterUtil.getJsonString(addBrandRequest)!!
-
         // WHEN & THEN
         mockMvc.perform(
-            MockMvcRequestBuilders.put(this.PATH)
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(jsonBody)
+            MockMvcRequestBuilders.get("${this.PATH}/cheapestTotalByBrand")
         ).andExpect(MockMvcResultMatchers.status().isOk)
             .andDo(MockMvcResultHandlers.print())
     }
 
     @Test
-    @DisplayName("브랜드 삭제 테스트")
-    fun deleteBrand() {
+    @DisplayName("카테고리별 최저/최고가 브랜드 조회 테스트")
+    fun getMinMaxPriceByCategory() {
         // GIVEN
 
         // WHEN & THEN
         mockMvc.perform(
-            MockMvcRequestBuilders.delete("${this.PATH}/1")
+            MockMvcRequestBuilders.get("${this.PATH}/minMaxPriceByCategory?category=TOP")
         ).andExpect(MockMvcResultMatchers.status().isOk)
             .andDo(MockMvcResultHandlers.print())
     }

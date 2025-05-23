@@ -1,5 +1,6 @@
 package com.coordi.core.product.controller
 
+import com.coordi.core.global.response.CommonRes
 import com.coordi.core.product.domain.Product
 import com.coordi.core.product.dto.request.AddProductRequest
 import com.coordi.core.product.dto.request.UpdateProductRequest
@@ -7,6 +8,8 @@ import com.coordi.core.product.service.ProductWriteService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -27,8 +30,9 @@ class ProductWriteController(
         ]
     )
     @PostMapping
-    fun addProduct(@RequestBody request: AddProductRequest){
+    fun addProduct(@RequestBody request: AddProductRequest): ResponseEntity<out Any> {
         this.productWriteService.addProduct(request)
+        return CommonRes.Basic(HttpStatus.OK)
     }
 
     @Operation(
@@ -45,8 +49,9 @@ class ProductWriteController(
     @PutMapping
     fun updateProduct(
         @RequestBody request: UpdateProductRequest
-    ){
-
+    ): ResponseEntity<out Any> {
+        this.productWriteService.updateProduct(request)
+        return CommonRes.Basic(HttpStatus.OK)
     }
 
     @Operation(
@@ -61,7 +66,8 @@ class ProductWriteController(
         ]
     )
     @DeleteMapping("/{id}")
-    fun deleteProduct(@PathVariable id: Long) {
+    fun deleteProduct(@PathVariable id: Long): ResponseEntity<out Any>  {
         this.productWriteService.deleteProduct(id)
+        return CommonRes.Basic(HttpStatus.OK)
     }
 }
