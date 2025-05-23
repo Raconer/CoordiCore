@@ -19,10 +19,10 @@ data class Product(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val category: Category?,
+    val category: Category? = null,
 
     @Column(nullable = false)
-    val price: Int?
+    val price: Int? = null
 ){
     constructor(brand: Brand,
                 productRequest: AddProductRequest): this(brand = brand, category = productRequest.category, price = productRequest.price)

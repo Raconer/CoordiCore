@@ -1,17 +1,23 @@
 package com.coordi.core.brand.controller
 
+import com.coordi.core.brand.dto.request.AddBrandRequest
+import com.coordi.core.brand.dto.request.UpdateBrandRequest
+import com.coordi.core.brand.service.BrandWriteService
+import com.coordi.core.global.response.CommonRes
 import com.coordi.core.product.dto.request.AddProductRequest
 import com.coordi.core.product.dto.request.UpdateProductRequest
 import com.coordi.core.product.service.ProductWriteService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/brand")
 class BrandWriteController(
-    private val productWriteService: ProductWriteService
+    private val brandWriteService: BrandWriteService
 ) {
 
     @Operation(
@@ -26,8 +32,9 @@ class BrandWriteController(
         ]
     )
     @PostMapping
-    fun addProduct(@RequestBody request: AddProductRequest){
-        this.productWriteService.addProduct(request)
+    fun addBrand(@RequestBody request: AddBrandRequest): ResponseEntity<out Any> {
+        this.brandWriteService.addBrand(request)
+        return CommonRes.Basic(HttpStatus.OK)
     }
 
     @Operation(
@@ -42,10 +49,11 @@ class BrandWriteController(
         ]
     )
     @PutMapping
-    fun updateProduct(
-        @RequestBody request: UpdateProductRequest
-    ){
-        this.productWriteService.updateProduct(request)
+    fun updateBrand(
+        @RequestBody request: UpdateBrandRequest
+    ): ResponseEntity<out Any>{
+        this.brandWriteService.updateBrand(request)
+        return CommonRes.Basic(HttpStatus.OK)
     }
 
     @Operation(
@@ -60,7 +68,8 @@ class BrandWriteController(
         ]
     )
     @DeleteMapping("/{id}")
-    fun deleteProduct(@PathVariable id: Long) {
-        this.productWriteService.deleteProduct(id)
+    fun deleteBrand(@PathVariable id: Long): ResponseEntity<out Any> {
+        this.brandWriteService.deleteBrand(id)
+        return CommonRes.Basic(HttpStatus.OK)
     }
 }
