@@ -1,4 +1,4 @@
-package com.coordi.core.config
+package com.coordi.core.global.config
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager

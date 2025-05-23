@@ -64,6 +64,7 @@ kapt {
     correctErrorTypes = true
 }
 
+/*
 sourceSets {
     main {
         java {
@@ -72,9 +73,12 @@ sourceSets {
         }
     }
 }
+*/
 
 // Java 컴파일러 설정
+/*
 tasks.withType<JavaCompile> {
     // 생성된 소스코드를 이 경로에 출력하도록 설정 (IDE 인식 보조)
     options.generatedSourceOutputDirectory = file("build/generated/source/kapt/main")
 }
+*/
