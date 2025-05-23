@@ -23,6 +23,7 @@
 ✅ Swagger 주소
 * Swagger UI:
   * http://localhost:8080/api/swagger/index.html
+
 ✅ H2 Console
 - URL: [http://localhost:8080/api/h2-console?jdbcUrl=jdbc:h2:mem:testdb&user=sa](http://localhost:8080/api/h2-console?jdbcUrl=jdbc:h2:mem:testdb&user=sa)
 
@@ -161,12 +162,7 @@ MockMvc 기반 단위 테스트 작성 완료.
 
 ⸻
 
-
-⸻
-
 ✅ 기타 참고 사항
 * 테스트 DB: H2 In-Memory (MODE=MYSQL)
 * 테이블은 JPA로 자동 생성됨 (ddl-auto: create)
 * 로그: Hibernate SQL 및 바인딩 값 출력 (format_sql, sql: debug, type.descriptor.sql: trace)
-
-⸻
