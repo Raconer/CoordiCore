@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/brand")
 class BrandWriteController(
     private val productWriteService: ProductWriteService
 ) {
@@ -45,7 +45,7 @@ class BrandWriteController(
     fun updateProduct(
         @RequestBody request: UpdateProductRequest
     ){
-
+        this.productWriteService.updateProduct(request)
     }
 
     @Operation(
