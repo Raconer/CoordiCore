@@ -1,6 +1,7 @@
 package com.coordi.core.brand.domain
 
 import com.coordi.core.brand.dto.request.AddBrandRequest
+import com.coordi.core.brand.dto.request.UpdateBrandRequest
 import com.coordi.core.product.domain.Product
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
@@ -19,9 +20,9 @@ data class Brand (
     val id: Long? = null,
 
     @Column(nullable = false, unique = true)
-    val name: String,
+    val name: String? = null,
 
-    @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(mappedBy = "brand", cascade = [CascadeType.ALL], orphanRemoval = false)
     val products: MutableList<Product> = mutableListOf()
 ){
     constructor(addBrandRequest: AddBrandRequest):this(name = addBrandRequest.name)

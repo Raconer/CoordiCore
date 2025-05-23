@@ -1,15 +1,20 @@
 package com.coordi.core.product.controller
 
 import com.coordi.core.global.costants.Category
+import com.coordi.core.global.response.CommonRes
 import com.coordi.core.product.service.ProductReadService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping("/products")
 class ProductReadController(
     private val productReadService: ProductReadService
 ) {
@@ -33,8 +38,9 @@ class ProductReadController(
         ]
     )
     @GetMapping("/categoryWiseCheapBrands")
-    fun getCategoryWiseCheapBrands(){
-        this.productReadService.getCategoryWiseCheapBrands()
+    fun getCategoryWiseCheapBrands(): ResponseEntity<out Any> {
+        val data = this.productReadService.getCategoryWiseCheapBrands()
+        return CommonRes.Def(data)
     }
 
     @Operation(
@@ -53,8 +59,9 @@ class ProductReadController(
         ]
     )
     @GetMapping("/cheapestTotalByBrand")
-    fun getCheapestTotalByBrand(){
-        this.productReadService.getCheapestTotalByBrand()
+    fun getCheapestTotalByBrand(): ResponseEntity<out Any> {
+        val data = this.productReadService.getCheapestTotalByBrand()
+        return CommonRes.Def(data)
     }
 
 
@@ -76,8 +83,10 @@ class ProductReadController(
     @GetMapping("/minMaxPriceByCategory")
     fun getMinMaxPriceByCategory(
         @RequestParam category: Category
-    ){
-        this.productReadService.getMinMaxPriceByCategory(category)
+    ): ResponseEntity<out Any> {
+        val data = this.productReadService.getMinMaxPriceByCategory(category)
+
+        return CommonRes.Def(data)
     }
 
 }
